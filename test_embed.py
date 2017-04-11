@@ -37,15 +37,13 @@ class TestEmbedding:
         assert driver.find_element_by_class_name('leaflet-control-zoom').is_displayed() == True
         assert driver.find_element_by_class_name('bottom-logo').is_displayed() == True
         
-    def test_basic_embed(self):
-        driver = get_driver()
+    def test_basic_embed(self, driver):
         wait_for = make_waiter(driver)
 
         driver.get(embed_url(''))
         self.common_checks({}, wait_for, driver)
 
-    def test_address_embed(self, address_embed):
-        driver = get_driver()
+    def test_address_embed(self, address_embed, driver):
         wait_for = make_waiter(driver)
         driver.get(embed_url(address_embed['path']))
 
@@ -60,8 +58,7 @@ class TestEmbedding:
                            'isNearMapCenter',
                            location['lat'], location['lng'])
 
-    def test_unit_embed(self, unit_embed):
-        driver = get_driver()
+    def test_unit_embed(self, unit_embed, driver):
         wait_for = make_waiter(driver)
         driver.get(embed_url(unit_embed['path']))
 
@@ -91,8 +88,7 @@ class TestEmbedding:
                                'isNearMapCenter',
                                location['lat'], location['lng'])
 
-    def test_service_embed(self, service_embed):
-        driver = get_driver()
+    def test_service_embed(self, service_embed, driver):
         wait_for = make_waiter(driver)
         driver.get(embed_url(service_embed['path']))
 
@@ -101,7 +97,7 @@ class TestEmbedding:
         elements = wait_for(EC.presence_of_all_elements_located, EmbedPage.UNIT_MARKER)
         assert len(elements) > 10
 
-    def test_personalization_settings(self, wait_for):
+    def test_personalization_settings(self, wait_for, driver):
         # Currently verifies that the user's map background settings
         # persist even for embedded views. TODO: is this the desired
         # behavior?
@@ -114,7 +110,6 @@ class TestEmbedding:
 
         assert wait_for(EC.presence_of_element_located, MainPage.ACCESSIBLE_MAP_LAYER).is_displayed()
 
-        driver = get_driver()
         driver.get(embed_url('address/helsinki/mannerheimintie/5'))
         
         assert wait_for(EC.presence_of_element_located, EmbedPage.ACCESSIBLE_MAP).is_displayed()        
