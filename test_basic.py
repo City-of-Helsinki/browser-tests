@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-class MainPage(object):
+class MainPage:
     SEARCH_INPUT = (
         By.CSS_SELECTOR,
         '#search-region > div > form > span:nth-of-type(1) > input')
@@ -29,12 +29,12 @@ class MainPage(object):
         'maplayer-accessible_map')
 
 
-class ServiceTreePage(object):
+class ServiceTreePage:
     SERVICE_NAME = (
         By.CSS_SELECTOR,
         '#service-tree-container > ul > li .service-name')
     
-class SearchResultPage(object):
+class SearchResultPage:
     RESULT_LIST = (
         By.CSS_SELECTOR,
         'ul.search-result-list')
