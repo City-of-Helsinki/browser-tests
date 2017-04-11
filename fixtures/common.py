@@ -7,8 +7,8 @@ from selenium import webdriver
 @pytest.fixture(scope='session')
 def driver():
     chrome_options = Options()
-    # chrome_options.add_argument('--headless')
-    # chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--window-size=1024,1024')
     driver = webdriver.Chrome(chrome_options=chrome_options)
     yield driver
