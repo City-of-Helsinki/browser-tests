@@ -61,14 +61,14 @@ UNITS = [
 
 SERVICES = [
     {
-        'path': '/unit?service=25002&bbox=60.13744,24.77468,60.20935,25.04703&city=helsinki',
+        'path': 'unit?service=25002&bbox=60.13744,24.77468,60.20935,25.04703&city=helsinki',
         'bbox': [
             [60.13744, 24.77468],
             [60.20935, 25.04703]
         ]
     },
     {
-        'path': '/unit?service=25010&bbox=60.13744,24.77468,60.20935,25.04703&city=helsinki',
+        'path': 'unit?service=25010&bbox=60.13744,24.77468,60.20935,25.04703&city=helsinki',
         'bbox': [
             [60.13744, 24.77468],
             [60.20935, 25.04703]
