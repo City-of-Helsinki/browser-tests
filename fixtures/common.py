@@ -4,7 +4,8 @@ import settings
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 
-HEADLESS = True
+HEADLESS = False
+
 
 @pytest.fixture(scope='session')
 def driver():
@@ -22,14 +23,17 @@ def driver_with_page(driver):
     driver.get(settings.SERVICEMAP_URL)
     return driver
 
+
 def wait(driver):
     from selenium.webdriver.support.ui import WebDriverWait
     return WebDriverWait(driver, settings.TIMEOUT)
+
 
 def make_waiter(driver):
     def waiter(condition, *args):
         return wait(driver).until(condition(*args))
     return waiter
+
 
 @pytest.fixture
 def wait_for(driver_with_page):
