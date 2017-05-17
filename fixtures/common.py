@@ -7,6 +7,7 @@ from selenium import webdriver
 HEADLESS = False
 
 
+
 @pytest.fixture(scope='session')
 def driver():
     chrome_options = Options()
@@ -18,9 +19,12 @@ def driver():
     yield driver
     driver.quit()
 
+
 @pytest.fixture
-def driver_with_page(driver):
-    driver.get(settings.SERVICEMAP_URL)
+def driver_with_page(request, driver):
+    service = getattr(request.module, 'service')
+    url = settings.SERVICES[service]['URL']
+    driver.get(url)
     return driver
 
 

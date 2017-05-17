@@ -6,7 +6,9 @@ from test_basic import MainPage
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+
+service = 'servicemap'
+
 
 class EmbedPage(object):
     MAP = (By.ID, 'map')
@@ -15,15 +17,19 @@ class EmbedPage(object):
     UNIT_MARKER = (By.CSS_SELECTOR, '.leaflet-marker-pane > .leaflet-marker-icon')
     ACCESSIBLE_MAP = (By.CLASS_NAME, 'accessible_map')
 
+
 def embed_url(path):
     return '{base}/embed/{path}'.format(base=settings.SERVICEMAP_URL, path=path)
+
 
 def get_js_script(script_name):
     f = open('js/{}.js'.format(script_name), 'r')
     return f.read()
 
+
 def assert_javascript(driver, script_name, *args):
     assert driver.execute_script(get_js_script(script_name), *args)
+
 
 class TestEmbedding:
 
@@ -36,7 +42,7 @@ class TestEmbedding:
         assert driver.find_element_by_id('navigation-region').is_displayed() == False
         assert driver.find_element_by_class_name('leaflet-control-zoom').is_displayed() == True
         assert driver.find_element_by_class_name('bottom-logo').is_displayed() == True
-        
+
     def test_basic_embed(self, driver):
         wait_for = make_waiter(driver)
 
