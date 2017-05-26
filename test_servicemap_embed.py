@@ -1,8 +1,9 @@
+import pytest
 import settings
 from fixtures.common import *
-from fixtures.embed import *
+from fixtures.servicemap import *
 
-from test_basic import MainPage
+from test_servicemap import MainPage
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 service = 'servicemap'
 
 SERVICEMAP_URL = settings.SERVICES['servicemap']['URL']
+
 
 class EmbedPage(object):
     MAP = (By.ID, 'map')
@@ -104,6 +106,7 @@ class TestEmbedding:
         elements = wait_for(EC.presence_of_all_elements_located, EmbedPage.UNIT_MARKER)
         assert len(elements) > 10
 
+    @pytest.mark.xfail
     def test_personalization_settings(self, wait_for, driver):
         # Currently verifies that the user's map background settings
         # persist even for embedded views. TODO: is this the desired
