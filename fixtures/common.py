@@ -4,8 +4,7 @@ import settings
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 
-HEADLESS = False
-
+HEADLESS = True
 
 
 @pytest.fixture(scope='session')
