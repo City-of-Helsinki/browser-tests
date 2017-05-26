@@ -1,5 +1,5 @@
 import settings
-from fixtures.common import *
+from fixtures.common import *  # NOQA
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC

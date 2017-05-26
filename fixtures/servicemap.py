@@ -5,7 +5,7 @@ ADDRESSES = [
         'path': 'address/Espoo/Veräjäpellonkatu/15',
         'location': {
             'lat': 60.2257708,
-            'lng': 24.8041296 },
+            'lng': 24.8041296},
         'name': 'Veräjäpellonkatu 15, Espoo'
 
     },
@@ -13,8 +13,8 @@ ADDRESSES = [
         'path': 'address/Espoo/Kamreerintie/3',
         'location': {
             'lat': 60.2042426,
-            'lng': 24.6560127 },
-        'name': 'Kamreerintie 3, Espoo' }]
+            'lng': 24.6560127},
+        'name': 'Kamreerintie 3, Espoo'}]
 
 UNITS = [
     {
@@ -77,13 +77,16 @@ SERVICES = [
 
 ]
 
+
 @pytest.fixture(params=ADDRESSES)
 def address_embed(request):
     return request.param
 
+
 @pytest.fixture(params=UNITS)
 def unit_embed(request):
     return request.param
+
 
 @pytest.fixture(params=SERVICES)
 def service_embed(request):

@@ -1,7 +1,7 @@
-import pytest
 import settings
-from fixtures.common import *
-from fixtures.servicemap import *
+from fixtures.common import make_waiter
+from fixtures.common import *  # NOQA
+from fixtures.servicemap import *  # NOQA
 
 from test_servicemap import MainPage
 
@@ -42,9 +42,9 @@ class TestEmbedding:
         wait_for(EC.title_is, 'Pääkaupunkiseudun palvelukartta')
         wait_for(EC.presence_of_element_located, EmbedPage.MAP)
         wait_for(EC.presence_of_element_located, EmbedPage.LEAFLET_MAP_PANE)
-        assert driver.find_element_by_id('navigation-region').is_displayed() == False
-        assert driver.find_element_by_class_name('leaflet-control-zoom').is_displayed() == True
-        assert driver.find_element_by_class_name('bottom-logo').is_displayed() == True
+        assert not driver.find_element_by_id('navigation-region').is_displayed()
+        assert driver.find_element_by_class_name('leaflet-control-zoom').is_displayed()
+        assert driver.find_element_by_class_name('bottom-logo').is_displayed()
 
     def test_basic_embed(self, driver):
         wait_for = make_waiter(driver)
@@ -64,8 +64,8 @@ class TestEmbedding:
 
         location = address_embed['location']
         assert_javascript(driver,
-                           'isNearMapCenter',
-                           location['lat'], location['lng'])
+                          'isNearMapCenter',
+                          location['lat'], location['lng'])
 
     def test_unit_embed(self, unit_embed, driver):
         wait_for = make_waiter(driver)
@@ -80,8 +80,8 @@ class TestEmbedding:
         location = unit_embed.get('location')
         if bbox:
             assert_javascript(driver,
-                               'containsPoint',
-                               location['lat'], location['lng'])
+                              'containsPoint',
+                              location['lat'], location['lng'])
 
             # TODO: in the current version, the bbox
             # paremeters do not work correctly
@@ -91,11 +91,10 @@ class TestEmbedding:
             # assert_javascript(driver,
             #                    'containsBbox',
             #                    bbox)
-                                               
         else:
             assert_javascript(driver,
-                               'isNearMapCenter',
-                               location['lat'], location['lng'])
+                              'isNearMapCenter',
+                              location['lat'], location['lng'])
 
     def test_service_embed(self, service_embed, driver):
         wait_for = make_waiter(driver)
@@ -122,5 +121,5 @@ class TestEmbedding:
         assert wait_for(EC.presence_of_element_located, MainPage.ACCESSIBLE_MAP_LAYER).is_displayed()
 
         driver.get(embed_url('address/helsinki/mannerheimintie/5'))
-        
-        assert wait_for(EC.presence_of_element_located, EmbedPage.ACCESSIBLE_MAP).is_displayed()        
+
+        assert wait_for(EC.presence_of_element_located, EmbedPage.ACCESSIBLE_MAP).is_displayed()

@@ -1,4 +1,4 @@
-from fixtures.common import *
+from fixtures.common import *  # NOQA
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -37,12 +37,14 @@ class ServiceTreePage:
     SERVICE_NAME = (
         By.CSS_SELECTOR,
         '#service-tree-container > ul > li .service-name')
-    
+
+
 class SearchResultPage:
     RESULT_LIST = (
         By.CSS_SELECTOR,
         'ul.search-result-list')
-    
+
+
 class TestBasicSanity:
 
     def test_site_title(self, driver_with_page):
@@ -63,7 +65,8 @@ class TestBasicSanity:
         matches = set((e for e in elements if e.text == 'Terveys'))
         assert len(matches) == 1
 
-        for e in elements: assert e.text != 'Sairaus'
+        for e in elements:
+            assert e.text != 'Sairaus'
 
     def test_suggestive_search(self, wait_for):
         search_text = 'kallion kirjasto'
@@ -91,6 +94,6 @@ class TestBasicSanity:
                                  MainPage.SEARCH_BUTTON)
         search_button.click()
 
-        element = wait_for(EC.text_to_be_present_in_element,
-                           SearchResultPage.RESULT_LIST,
-                           'Kallion kirjasto')
+        wait_for(EC.text_to_be_present_in_element,
+                 SearchResultPage.RESULT_LIST,
+                 'Kallion kirjasto')
