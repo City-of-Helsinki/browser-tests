@@ -106,7 +106,6 @@ class TestEmbedding:
         elements = wait_for(EC.presence_of_all_elements_located, EmbedPage.UNIT_MARKER)
         assert len(elements) > 10
 
-    @pytest.mark.xfail
     def test_personalization_settings(self, wait_for, driver):
         # Currently verifies that the user's map background settings
         # persist even for embedded views. TODO: is this the desired
@@ -114,6 +113,8 @@ class TestEmbedding:
 
         button = wait_for(EC.element_to_be_clickable, MainPage.PERSONALISATION_BUTTON)
         button.click()
+
+        wait_for(EC.invisibility_of_element_located, MainPage.FEATURE_TOUR_POPUP)
 
         button = wait_for(EC.element_to_be_clickable, MainPage.COLORBLIND_BUTTON)
         button.click()

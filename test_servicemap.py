@@ -28,6 +28,9 @@ class MainPage:
     ACCESSIBLE_MAP_LAYER = (
         By.CLASS_NAME,
         'maplayer-accessible_map')
+    FEATURE_TOUR_POPUP = (
+        By.CSS_SELECTOR,
+        '.popover.tour')
 
 
 class ServiceTreePage:
