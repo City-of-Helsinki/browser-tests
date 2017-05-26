@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 service = 'servicemap'
 
+SERVICEMAP_URL = settings.SERVICES['servicemap']['URL']
 
 class EmbedPage(object):
     MAP = (By.ID, 'map')
@@ -19,7 +20,7 @@ class EmbedPage(object):
 
 
 def embed_url(path):
-    return '{base}/embed/{path}'.format(base=settings.SERVICEMAP_URL, path=path)
+    return '{base}/embed/{path}'.format(base=SERVICEMAP_URL, path=path)
 
 
 def get_js_script(script_name):
