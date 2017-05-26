@@ -4,13 +4,11 @@ import settings
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 
-HEADLESS = True
-
 
 @pytest.fixture(scope='session')
 def driver():
     chrome_options = Options()
-    if HEADLESS:
+    if settings.HEADLESS:
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--window-size=512,512')
