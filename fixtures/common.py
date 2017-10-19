@@ -12,19 +12,19 @@ def driver():
                 'platform': "Windows 10",
                 'browserName': "internet explorer",
                 'version': "11.103",
-                }
+            }
         elif settings.BROWSER == 'ie10':
             desired_cap = {
                 'platform': "Windows 7",
                 'browserName': "internet explorer",
                 'version': "10.0",
-                }
+            }
         else:
             desired_cap = {
-                    'platform': "Mac OS X 10.9",
-                    'browserName': "chrome",
-                    'version': "31",
-                    }
+                'platform': "Mac OS X 10.9",
+                'browserName': "chrome",
+                'version': "31",
+            }
         driver = webdriver.Remote(
            command_executor=f'http://{settings.SAUCELABS_USERNAME}:{settings.SAUCELABS_ACCESS_KEY}@ondemand.saucelabs.com:80/wd/hub',
            desired_capabilities=desired_cap)
