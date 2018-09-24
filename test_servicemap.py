@@ -15,7 +15,7 @@ class MainPage:
         'browse-region')
     SUGGESTIVE_SEARCH_RESULTS = (
         By.CSS_SELECTOR,
-        '#search-region span.twitter-typeahead .tt-dataset-service')
+        '#search-region span.twitter-typeahead .tt-dataset-serviceNode')
     SEARCH_BUTTON = (
         By.CSS_SELECTOR,
         '#search-region > div > form > span.action-button.search-button > span')
@@ -36,7 +36,7 @@ class MainPage:
 class ServiceTreePage:
     SERVICE_NAME = (
         By.CSS_SELECTOR,
-        '#service-tree-container > ul > li .service-name')
+        '#service-tree-container > ul > li .service-node-name')
 
 
 class SearchResultPage:
