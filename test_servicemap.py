@@ -1,6 +1,7 @@
 from fixtures.common import *  # NOQA
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 
 service = 'servicemap'
@@ -15,10 +16,10 @@ class MainPage:
         'browse-region')
     SUGGESTIVE_SEARCH_RESULTS = (
         By.CSS_SELECTOR,
-        '#search-region span.twitter-typeahead .tt-dataset-serviceNode')
+        '#search-region span.twitter-typeahead .tt-dataset-service')
     SEARCH_BUTTON = (
         By.CSS_SELECTOR,
-        '#search-region > div > form > span.action-button.search-button > span')
+        '#search-region > div > form > span.action-button.search-button')
     PERSONALISATION_BUTTON = (
         By.CSS_SELECTOR,
         '#personalisation .personalisation-button')
@@ -43,6 +44,9 @@ class SearchResultPage:
     RESULT_LIST = (
         By.CSS_SELECTOR,
         'ul.search-result-list')
+    RESULT_INFOMESSAGE = (
+        By.CSS_SELECTOR,
+        'ul.main-list > li.info-box')
 
 
 class TestBasicSanity:
@@ -88,12 +92,34 @@ class TestBasicSanity:
                                  MainPage.SEARCH_INPUT)
 
         input_element.click()
-        input_element.send_keys(search_text)
+        input_element.send_keys(search_text + Keys.RETURN)
 
-        search_button = wait_for(EC.element_to_be_clickable,
-                                 MainPage.SEARCH_BUTTON)
-        search_button.click()
+        # TODO: for some reason the clicking of the search button
+        # below wasn't reliable / was timing dependent.
+        # It would be better to test both enter and clicking
+        # on the button (somehow)
+        #
+        # search_button = wait_for(EC.element_to_be_clickable,
+        #                          MainPage.SEARCH_BUTTON)
+        # search_button.click()
 
         wait_for(EC.text_to_be_present_in_element,
                  SearchResultPage.RESULT_LIST,
                  'Kallion kirjasto')
+
+    def test_failing_search_results_in_informational_message(self, wait_for):
+        search_text = 'aaaaaabbbbbbbcccccddddddd'
+
+        input_element = wait_for(EC.element_to_be_clickable,
+                                 MainPage.SEARCH_INPUT)
+
+        input_element.click()
+        input_element.send_keys(search_text + Keys.RETURN)
+
+        wait_for(EC.text_to_be_present_in_element,
+                 SearchResultPage.RESULT_INFOMESSAGE,
+                 'Ei osumia')
+
+        wait_for(EC.text_to_be_present_in_element,
+                 SearchResultPage.RESULT_INFOMESSAGE,
+                 search_text)
